@@ -1,0 +1,37 @@
+name: Trend Scout — Pump Team
+
+on:
+  # Todos los domingos a las 21:00 UTC = 18:00 Argentina (UTC-3)
+  schedule:
+    - cron: '0 21 * * 0'
+
+  # Ejecución manual desde la pestaña Actions de GitHub
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: pip install anthropic requests
+
+      - name: Ejecutar agente de tendencias
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          WHATSAPP_NUMBER:   ${{ secrets.WHATSAPP_NUMBER }}
+          WHATSAPP_PROVIDER: ${{ secrets.WHATSAPP_PROVIDER }}
+          WHAPI_API_URL:     ${{ secrets.WHAPI_API_URL }}
+          WHAPI_API_TOKEN:   ${{ secrets.WHAPI_API_TOKEN }}
+          META_ACCESS_TOKEN:    ${{ secrets.META_ACCESS_TOKEN }}
+          META_PHONE_NUMBER_ID: ${{ secrets.META_PHONE_NUMBER_ID }}
+        run: python agent.py
