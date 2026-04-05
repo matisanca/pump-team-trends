@@ -45,6 +45,11 @@ MAX_SEARCHES = 15
 MAX_API_RETRIES = 2
 RETRY_WAIT_SECONDS = 30
 
+# Espera ante rate limit 429 (Sonnet: 30k input tokens/min)
+# El contexto de investigación crece a ~200k tokens → necesitamos esperar ~90s
+RATE_LIMIT_WAIT_SECONDS = 90
+MAX_RATE_LIMIT_RETRIES = 5
+
 
 # ── System prompt del agente ──────────────────────────────────────────────────
 # No modificar este string — es el prompt exacto acordado con Mati.
@@ -365,16 +370,30 @@ def run_agent(client: anthropic.Anthropic) -> str:
             f"(búsquedas acumuladas: {total_searches}) ──"
         )
 
-        response = client.messages.create(
-            model=MODEL,
-            max_tokens=16000,
-            # Adaptive thinking: Claude decide cuánto razonar según la complejidad.
-            # No usar budget_tokens (deprecado en Opus 4.6).
-            thinking={"type": "adaptive"},
-            system=SYSTEM_PROMPT,
-            tools=[{"type": "web_search_20250305", "name": "web_search"}],
-            messages=messages,
-        )
+        # Reintenta ante rate limit 429 (contexto grande supera 30k tokens/min de Sonnet)
+        for rl_attempt in range(MAX_RATE_LIMIT_RETRIES):
+            try:
+                response = client.messages.create(
+                    model=MODEL,
+                    max_tokens=16000,
+                    # Adaptive thinking: Claude decide cuánto razonar según la complejidad.
+                    # No usar budget_tokens (deprecado en Opus 4.6).
+                    thinking={"type": "adaptive"},
+                    system=SYSTEM_PROMPT,
+                    tools=[{"type": "web_search_20250305", "name": "web_search"}],
+                    messages=messages,
+                )
+                break  # éxito → salir del loop de rate limit
+            except anthropic.RateLimitError:
+                if rl_attempt < MAX_RATE_LIMIT_RETRIES - 1:
+                    wait = RATE_LIMIT_WAIT_SECONDS * (rl_attempt + 1)
+                    logger.warning(
+                        f"Rate limit 429 (intento {rl_attempt + 1}/{MAX_RATE_LIMIT_RETRIES}). "
+                        f"Esperando {wait}s..."
+                    )
+                    time.sleep(wait)
+                else:
+                    raise
 
         # Contamos y logueamos cada búsqueda de esta respuesta
         total_searches = count_and_log_searches(response.content, total_searches)
@@ -474,19 +493,32 @@ def run_script_agent(client: anthropic.Anthropic, research_brief: str) -> list[s
     """
     logger.info("── Agente guionista: generando 3 guiones ──")
 
-    response = client.messages.create(
-        model=MODEL,
-        max_tokens=3000,
-        system=SCRIPT_WRITER_PROMPT,
-        messages=[{
-            "role": "user",
-            "content": (
-                f"Este es el brief de investigación de esta semana:\n\n{research_brief}\n\n"
-                "Escribí los 3 guiones para los temas #1, #2 y #3. "
-                "Seguí exactamente la estructura y el formato indicados."
-            ),
-        }],
-    )
+    for rl_attempt in range(MAX_RATE_LIMIT_RETRIES):
+        try:
+            response = client.messages.create(
+                model=MODEL,
+                max_tokens=3000,
+                system=SCRIPT_WRITER_PROMPT,
+                messages=[{
+                    "role": "user",
+                    "content": (
+                        f"Este es el brief de investigación de esta semana:\n\n{research_brief}\n\n"
+                        "Escribí los 3 guiones para los temas #1, #2 y #3. "
+                        "Seguí exactamente la estructura y el formato indicados."
+                    ),
+                }],
+            )
+            break
+        except anthropic.RateLimitError:
+            if rl_attempt < MAX_RATE_LIMIT_RETRIES - 1:
+                wait = RATE_LIMIT_WAIT_SECONDS * (rl_attempt + 1)
+                logger.warning(
+                    f"Rate limit 429 en guionista (intento {rl_attempt + 1}/{MAX_RATE_LIMIT_RETRIES}). "
+                    f"Esperando {wait}s..."
+                )
+                time.sleep(wait)
+            else:
+                raise
 
     raw = response.content[0].text
     print(raw, flush=True)
