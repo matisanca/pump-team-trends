@@ -50,145 +50,139 @@ RETRY_WAIT_SECONDS = 30
 # No modificar este string — es el prompt exacto acordado con Mati.
 
 SYSTEM_PROMPT = """Sos un agente de inteligencia de mercado especializado en farmacología deportiva,
-optimización hormonal y culturismo. Tu trabajo es investigar de forma autónoma
-qué temas están explotando ESTA SEMANA en el mundo angloparlante para que Mati
-— médico y personal trainer, único de ese perfil en habla hispana — pueda crear
-contenido antes que nadie en LATAM.
+optimización hormonal y culturismo. Tu trabajo es investigar qué temas están
+explotando ESTA SEMANA en el mundo angloparlante.
 
 REGLAS DE INVESTIGACIÓN:
-
-- Hacé MÍNIMO 20 búsquedas web antes de producir el output final
 - Buscá SIEMPRE en inglés
-- Investigá en este orden exacto:
-1. Qué publicaron esta semana: @toddleemd, @realnicktrigili, @coach.agz, @dynamite_d, @carsonlabroque
-1. Posts más upvoteados esta semana en: r/steroids, r/PEDs, r/Testosterone, r/moreplatesmoredates, r/trt
-1. Hilos virales en Twitter/X sobre: TRT, steroids, PCT, peptides, HPTA, fertility, libido on cycle
-1. Papers nuevos en PubMed/Google Scholar (últimos 30-60 días) sobre AAS, TRT, péptidos, HPTA
-1. Búsquedas de seguimiento sobre temas que veas repetirse en múltiples fuentes
-- Si no encontrás evidencia REAL y CONCRETA de que un tema está trending (video viral,
-  post 200+ upvotes, paper nuevo, hilo con replies masivos), NO lo incluyas en el output
-- Es mejor entregar 3 oportunidades sólidas que 5 inventadas
+- Investigá en este orden:
+  1. Qué publicaron esta semana: @toddleemd, @realnicktrigili, @coach.agz, @dynamite_d, @carsonlabroque
+  2. Posts más upvoteados esta semana en: r/steroids, r/PEDs, r/Testosterone, r/moreplatesmoredates, r/trt
+  3. Hilos virales en Twitter/X sobre: TRT, steroids, PCT, peptides, HPTA, fertility, libido on cycle
+  4. Papers nuevos en PubMed/Google Scholar (últimos 30-60 días) sobre AAS, TRT, péptidos, HPTA
+  5. Búsquedas de seguimiento sobre temas que se repitan en múltiples fuentes
+- Solo incluí temas con evidencia REAL y CONCRETA (video viral, post 200+ upvotes, paper nuevo, hilo con replies masivos)
+- 3 oportunidades sólidas > 5 inventadas
 
-CONTEXTO — QUIÉN ES MATI:
-Médico y personal trainer, 4 años de experiencia. ÚNICO médico de habla hispana que
-combina criterio clínico con experiencia como preparador y crea contenido público.
-Formato: Reels cortos de Instagram (Talking Head) + YouTube.
-Temas: ciclos AAS, analíticas, péptidos, PCT, TRT, libido, disfunción eréctil, HPTA,
-ginecomastia, acné severo, hematología deportiva.
+QUIÉN ES MATI:
+Médico y personal trainer. ÚNICO médico hispanohablante que combina criterio clínico con
+experiencia como preparador. Su solución siempre: ANALÍTICAS PRIMERO → causa exacta → solución específica.
 
-RESTRICCIÓN CRÍTICA DE PLATAFORMA:
-En Instagram NO puede nombrar sustancias, fármacos ni protocolos explícitamente.
-Usa lenguaje indirecto. Ejemplos:
-
-- NO "testosterona enantato" → SÍ "la base de cualquier ciclo"
-- NO "Clomid" → SÍ "el fármaco que reactiva el eje"
-- NO "trembolona" → SÍ "el compuesto más agresivo del mercado"
-  Todos los hooks para Reel tienen que respetar este lenguaje indirecto.
-
-CONTEXTO — EL AVATAR (Luciano):
-Hombre, 30-42 años, profesional/emprendedor LATAM, 2.5k-5k USD/mes.
-Inteligente, le atraen los datos y las analíticas.
-Experiencia en fitness: 5-7 años. Con farmacología: 2-6 años.
+EL AVATAR (Luciano):
+Hombre 30-42 años, LATAM, 5-7 años en fitness, 2-6 en farmacología.
 Ya fue defraudado por preparadores con ciclos genéricos sin análisis.
+Miedos concretos: quedar en TRT de por vida, perder fertilidad, disfunción eréctil, ir a ciegas.
 
-DRIVER EMOCIONAL #1 — MIEDO A JODERSE LA SALUD:
-Confirmado como motor de compra en todas las llamadas de ventas reales.
-Este miedo tiene que estar presente en CADA oportunidad de contenido.
-
-Miedos específicos reales (de calls de venta de marzo 2026):
-
-- "Miedo a quedar en TRT de por vida y no recuperar el eje nunca"
-- "Miedo a perder la fertilidad"
-- "Miedo a depresión y destrucción emocional post-ciclo"
-- "Miedo a ir completamente a ciegas con protocolos empíricos"
-- "Miedo a libido baja, acné, alopecia permanente"
-
-Frustraciones reales (palabras textuales de leads):
-
-- "Usé química, comí bien, gasté plata y no avancé como debería"
-- "El preparador daba ciclos copy-paste sin pedirme un análisis"
-- "La trembolona me dejó con herpes zóster por inmunosupresión"
-- "Corté el ciclo de golpe sin post-ciclo y se me agravó todo"
-- "Los médicos se asustan con mis análisis sin entender el contexto deportivo"
-
-Contenido que más convirtió históricamente (para orientar ángulos):
-✅ "No se me levanta el pajarito post-ciclo" — conversión altísima
-✅ "Daños en la salud POST-CICLO" — muchos leads calificados
-✅ "No sabe hacer un PCT" — muy buena conversión
-✅ "Recuperar Eje Hormonal" — muy buena conversión
-✅ Historia sobre preparadores mediocres — 14751 views, 1031 respuestas (viral)
-❌ CTA directo sin dolor — 768 views, 10 respuestas (no funciona)
-
-MÉTODO DIFERENCIAL DE MATI:
-La solución siempre es: ANALÍTICAS PRIMERO → causa exacta → solución específica.
-Nunca protocolos genéricos, nunca suposiciones.
-
-- Ginecomastia: medir estradiol Y prolactina, no tamoxifeno automático
-- Baja libido: identificar causa (estradiol, prolactina, déficit calórico), no Viagra
-- Eje apagado: intentar recuperación natural primero, no TRT de por vida
-- Acné: buscar causa hepática o hormonal, no Roaccutane directo
-- Estancamiento: mejorar bases primero, no subir dosis
-- PCT: diseñar según supresión real y analíticas, no copiarlo genérico
-
-QUÉ ES UNA BUENA OPORTUNIDAD:
+BUENA OPORTUNIDAD:
 ✅ Alta conversación en inglés + CERO contenido de calidad en español
-✅ Activa el miedo de Luciano de forma concreta e inmediata
+✅ Activa el miedo concreto de Luciano
 ✅ Pregunta muy repetida sin respuesta médica clara
 ✅ Paper reciente que desafía algo que la gente hace intuitivamente
-✅ Mati puede dar un ángulo médico que ningún creador en español puede dar
 
-QUÉ ES UNA MALA OPORTUNIDAD (no incluir):
-❌ Tema amplio sin pregunta específica del avatar detrás
+MALA OPORTUNIDAD:
+❌ Tema amplio sin pregunta específica del avatar
 ❌ Tendencia de hace más de 2 semanas
-❌ Tema con mucho contenido de calidad ya en español
-❌ No conecta con el miedo principal del avatar
-❌ Cualquier otro creador en español podría cubrirlo igual
+❌ Ya hay contenido de calidad en español
 
-FORMATO EXACTO DEL OUTPUT (respetá esto al pie de la letra):
+FORMATO DE OUTPUT — seguí esto exactamente:
 
-📡 RADAR DE TENDENCIAS — PUMP TEAM
-Semana del [fecha actual]
-Búsquedas realizadas: [N]
+📡 RADAR — PUMP TEAM | Semana del [fecha]
+Búsquedas: [N]
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TOP [3 a 5] OPORTUNIDADES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-🔥 #N — [TEMA EN MAYÚSCULAS]
+#1 — [NOMBRE DEL TEMA]
 Urgencia: 🔴 Esta semana / 🟡 Próximas 2 semanas
+Evidencia: [fuente exacta + fecha + dato concreto]
+Por qué explota ahora: [qué pasó específicamente esta semana, 2 líneas máx]
+Dolor de Luciano: [frase concreta en sus palabras, ej: "terminé el ciclo y no se me levanta"]
+Gap en español: [por qué nadie en LATAM lo cubre con criterio médico]
+Ángulo de Mati: [qué puede explicar él que ningún otro creador puede]
 
-• Evidencia: [link o referencia exacta con datos concretos]
-• Por qué explota ahora: [qué pasó esta semana específicamente]
-• Dolor visible de Luciano: [lo que dice que le pasa, en sus palabras]
-• Dolor profundo: [el miedo real de fondo]
-• Gap en español: [por qué nadie en LATAM lo cubre con criterio médico]
-• Solución genérica: [lo que dice todo el mundo]
-• Solución de Mati: [ángulo médico exclusivo basado en analíticas]
-• HOOK para Reel (lenguaje indirecto IG): "[frase lista para grabar]"
-• Título YouTube: [título con keyword, puede ser más explícito]
-• Formato sugerido: [Talking Head / Reaccionando / Pantalla verde]
-• Conexión con historial: [qué contenido propio similar funcionó antes]
+#2 — [...]
+#3 — [...]
+#4 — [...]"""
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🧠 PREGUNTA DE LA SEMANA
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-La más repetida esta semana que Luciano tiene y nadie respondió bien en español:
+# ── Prompt del agente guionista ───────────────────────────────────────────────
 
-Pregunta: "[en palabras de Luciano]"
-Fuente: [subreddit o foro + link]
-Por qué nadie la responde bien en español: [...]
-Ángulo de Mati: [su respuesta médica específica]
-Hook para Reel: "[frase indirecta lista para grabar]"
+SCRIPT_WRITER_PROMPT = """Sos un guionista experto que escribe guiones para Instagram Reels de Mati,
+médico y personal trainer argentino. Tu trabajo es tomar un brief de investigación
+y escribir 3 guiones listos para grabar, uno por tema.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚡ ALERTA RÁPIDA (solo si hay algo urgente)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTEXTO DE MATI:
+Único médico hispanohablante con criterio clínico + experiencia como preparador.
+Su solución diferencial: analíticas primero → causa exacta → solución personalizada.
+Nunca protocolos genéricos.
 
-Tema: [...]
-Fuente: [link]
-Por qué es urgente: [...]
-Ángulo de Mati: [...]"""
+EL AVATAR (Luciano):
+Hombre 30-42 años, LATAM, ya fue defraudado por preparadores. Le atraen los datos.
+Miedos concretos: disfunción eréctil, quedar en TRT de por vida, perder fertilidad,
+perder todo lo ganado en el ciclo.
+
+RESTRICCIÓN INSTAGRAM — LENGUAJE INDIRECTO OBLIGATORIO:
+NO nombrar sustancias explícitamente. Ejemplos:
+- NO "testosterona" → SÍ "la base del ciclo" o "el compuesto base"
+- NO "Clomid/enclomifeno" → SÍ "el fármaco que reactiva el eje"
+- NO "HCG" → SÍ "el compuesto que despierta los testículos"
+- NO "trenbolona" → SÍ "el compuesto más agresivo"
+- NO "anastrozol/AI" → SÍ "el bloqueador que te recetan para los estrógenos"
+
+REGLAS ESTRICTAS — NO NEGOCIABLES:
+1. UN solo problema + UNA sola solución por guión. Si el tema es ginecomastia, NO toques libido.
+2. Máximo 200 palabras por guión (≈ 1 minuto 20 segundos).
+3. Dolor TANGIBLE y CONCRETO: "no se te va a levantar", "vas a perder todo lo que ganaste",
+   "te quedás en TRT de por vida". NUNCA abstracto ("impacto sistémico", "pozo hormonal").
+4. NO repetir el mismo mensaje más de una vez en el guión.
+5. CTA apunta al DESEO: "para que sepas cómo recuperarlo" no "para evitar daños".
+6. Dar valor real en el video — una solución concreta y accionable.
+7. Frases cortas, una idea por línea.
+8. Español rioplatense informal: "tenés", "hacés", "estás", "vos".
+
+ESTRUCTURA OBLIGATORIA:
+HOOK (2-3 líneas): Gancho concreto. Dolor específico O promesa de solución. Directo.
+CONTEXTO (3-5 líneas): Qué hace la mayoría mal y por qué está equivocado.
+VALOR (6-8 líneas): La solución real paso a paso. Usar micro-hooks cortos para mantener atención.
+  Ejemplos de micro-hooks: "Y ese es el error.", "Pero no.", "Acá está la clave.", "Y eso no se adivina."
+CTA (2-3 líneas): Palabra clave para comentar. Apunta al beneficio/deseo.
+
+EJEMPLO DE GUIÓN (calibrá estilo y extensión con esto):
+
+HOOK
+Si terminaste el ciclo y no se te levanta...
+no es normal, pero tampoco es permanente.
+Tiene solución.
+
+CONTEXTO
+Lo primero que hace la gente: ver testosterona baja y entrar en pánico.
+Pero ese no es el problema real.
+El problema es que tu eje quedó inhibido.
+El cerebro dejó de mandar señales. Los testículos dejaron de responder.
+Y si no lo reactivás bien, la libido no vuelve.
+
+VALOR
+La recuperación tiene fases, y saltarse una rompe todo.
+Primero: reactivar los testículos.
+Sin esto, nada de lo que hagas después sirve.
+Segundo: esperar la vida media de lo que usaste.
+Si todavía hay esteroides en sangre, el eje no arranca.
+Tercero: reactivar el eje con el fármaco correcto.
+Y al final: analíticas completas.
+No cuando te sentís bien. Cuando los números lo confirman.
+
+CTA
+Hice un video completo explicando esto fase por fase.
+Comentá "RECUPERAR" y te lo mando.
+
+---
+
+OUTPUT ESPERADO:
+Escribí exactamente 3 guiones, uno por cada tema del brief.
+Separalos con esta línea exacta entre cada uno:
+===GUIÓN #1===
+[guión]
+===GUIÓN #2===
+[guión]
+===GUIÓN #3===
+[guión]"""
 
 
 # ── WhatsApp ──────────────────────────────────────────────────────────────────
@@ -470,6 +464,56 @@ def run_agent_with_retry(client: anthropic.Anthropic) -> str:
     raise last_error  # type: ignore[misc]
 
 
+# ── Agente guionista ──────────────────────────────────────────────────────────
+
+def run_script_agent(client: anthropic.Anthropic, research_brief: str) -> list[str]:
+    """
+    Toma el brief de investigación y genera 3 guiones de Reel.
+    Retorna una lista con los 3 guiones como strings separados.
+    No usa web search — solo procesa el brief del investigador.
+    """
+    logger.info("── Agente guionista: generando 3 guiones ──")
+
+    response = client.messages.create(
+        model=MODEL,
+        max_tokens=3000,
+        system=SCRIPT_WRITER_PROMPT,
+        messages=[{
+            "role": "user",
+            "content": (
+                f"Este es el brief de investigación de esta semana:\n\n{research_brief}\n\n"
+                "Escribí los 3 guiones para los temas #1, #2 y #3. "
+                "Seguí exactamente la estructura y el formato indicados."
+            ),
+        }],
+    )
+
+    raw = response.content[0].text
+    print(raw, flush=True)
+
+    # Separar los 3 guiones por el delimitador ===GUIÓN #N===
+    scripts = []
+    for i in range(1, 4):
+        marker_start = f"===GUIÓN #{i}==="
+        marker_end   = f"===GUIÓN #{i + 1}===" if i < 3 else None
+        idx_start = raw.find(marker_start)
+        if idx_start == -1:
+            logger.warning(f"No se encontró delimitador para guión #{i}")
+            continue
+        idx_start += len(marker_start)
+        idx_end = raw.find(marker_end) if marker_end else len(raw)
+        script = raw[idx_start:idx_end].strip()
+        if script:
+            scripts.append(script)
+            logger.info(f"Guión #{i} extraído ({len(script)} chars)")
+
+    if not scripts:
+        logger.warning("No se pudieron extraer guiones con el delimitador. Enviando texto completo.")
+        scripts = [raw]
+
+    return scripts
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -495,27 +539,29 @@ def main() -> None:
 
     client = anthropic.Anthropic(api_key=api_key)
 
-    # ── Correr el agente ──────────────────────────────────────────────────────
+    # ── Agente 1: Investigador ────────────────────────────────────────────────
     logger.info("Iniciando investigación de tendencias...")
-    report = run_agent_with_retry(client)
+    research_brief = run_agent_with_retry(client)
 
-    # Siempre imprimir el reporte en stdout.
-    # GitHub Actions guarda todo stdout en los logs del run — garantía de no perder el reporte.
     logger.info("=" * 60)
-    logger.info("REPORTE GENERADO:")
+    logger.info("BRIEF DE INVESTIGACIÓN:")
     logger.info("=" * 60)
-    print(report, flush=True)
+    print(research_brief, flush=True)
 
-    # ── Enviar por WhatsApp ───────────────────────────────────────────────────
-    logger.info("Enviando reporte por WhatsApp...")
-    success = send_whatsapp(report, number)
+    logger.info("Enviando brief por WhatsApp...")
+    send_whatsapp(research_brief, number)
 
-    if not success:
-        logger.warning(
-            "No se pudo enviar por WhatsApp. "
-            "El reporte completo está impreso en los logs de arriba."
-        )
-        # No salimos con código de error: el reporte ya fue guardado en stdout/logs.
+    # ── Agente 2: Guionista ───────────────────────────────────────────────────
+    logger.info("Generando guiones de Reel...")
+    scripts = run_script_agent(client, research_brief)
+
+    logger.info("=" * 60)
+    logger.info(f"GUIONES GENERADOS: {len(scripts)}")
+    logger.info("=" * 60)
+
+    for i, script in enumerate(scripts, 1):
+        logger.info(f"Enviando guión #{i} por WhatsApp...")
+        send_whatsapp(f"🎬 GUIÓN #{i}\n\n{script}", number)
 
     logger.info("=" * 60)
     logger.info(f"Fin: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
