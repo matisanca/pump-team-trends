@@ -36,7 +36,8 @@ logger = logging.getLogger(__name__)
 
 # ── Configuración ─────────────────────────────────────────────────────────────
 
-MODEL = "claude-sonnet-4-6"
+RESEARCHER_MODEL = "claude-sonnet-4-6"
+SCRIPT_MODEL     = "claude-haiku-4-5-20251001"  # más barato + rate limit separado
 
 # Límite de búsquedas para controlar costos (~$0.50-0.70 por run típico)
 MAX_SEARCHES = 8
@@ -374,7 +375,7 @@ def run_agent(client: anthropic.Anthropic) -> str:
         for rl_attempt in range(MAX_RATE_LIMIT_RETRIES):
             try:
                 response = client.messages.create(
-                    model=MODEL,
+                    model=RESEARCHER_MODEL,
                     max_tokens=4000,
                     system=SYSTEM_PROMPT,
                     tools=[{"type": "web_search_20250305", "name": "web_search"}],
@@ -497,7 +498,7 @@ def run_script_agent(client: anthropic.Anthropic, research_brief: str) -> list[s
     for rl_attempt in range(MAX_RATE_LIMIT_RETRIES):
         try:
             response = client.messages.create(
-                model=MODEL,
+                model=SCRIPT_MODEL,
                 max_tokens=3000,
                 system=SCRIPT_WRITER_PROMPT,
                 messages=[{
@@ -583,12 +584,6 @@ def main() -> None:
 
     logger.info("Enviando brief por WhatsApp...")
     send_whatsapp(research_brief, number)
-
-    # ── Pausa antes del guionista ─────────────────────────────────────────────
-    # El investigador consume mucho del rate limit de tokens/min de Sonnet.
-    # Esperamos 90s para que la ventana se resetee antes de llamar al guionista.
-    logger.info("Esperando 120s para resetear rate limit antes del guionista...")
-    time.sleep(120)
 
     # ── Agente 2: Guionista ───────────────────────────────────────────────────
     logger.info("Generando guiones de Reel...")
