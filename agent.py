@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 MODEL = "claude-sonnet-4-6"
 
 # Límite de búsquedas para controlar costos (~$0.50-0.70 por run típico)
-MAX_SEARCHES = 15
+MAX_SEARCHES = 8
 
 # Reintentos ante fallo de la API de Anthropic (con 30s de espera entre intentos)
 MAX_API_RETRIES = 2
@@ -375,10 +375,7 @@ def run_agent(client: anthropic.Anthropic) -> str:
             try:
                 response = client.messages.create(
                     model=MODEL,
-                    max_tokens=16000,
-                    # Adaptive thinking: Claude decide cuánto razonar según la complejidad.
-                    # No usar budget_tokens (deprecado en Opus 4.6).
-                    thinking={"type": "adaptive"},
+                    max_tokens=8000,
                     system=SYSTEM_PROMPT,
                     tools=[{"type": "web_search_20250305", "name": "web_search"}],
                     messages=messages,
