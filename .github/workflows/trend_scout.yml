@@ -1,10 +1,6 @@
 name: Trend Scout — Pump Team
 
 on:
-  # Todos los domingos a las 21:00 UTC = 18:00 Argentina (UTC-3)
-  schedule:
-    - cron: '0 21 * * 0'
-
   # Ejecución manual desde la pestaña Actions de GitHub
   workflow_dispatch:
 
