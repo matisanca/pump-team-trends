@@ -583,6 +583,12 @@ def main() -> None:
     logger.info("Enviando brief por WhatsApp...")
     send_whatsapp(research_brief, number)
 
+    # ── Pausa antes del guionista ─────────────────────────────────────────────
+    # El investigador consume mucho del rate limit de tokens/min de Sonnet.
+    # Esperamos 90s para que la ventana se resetee antes de llamar al guionista.
+    logger.info("Esperando 90s para resetear rate limit antes del guionista...")
+    time.sleep(90)
+
     # ── Agente 2: Guionista ───────────────────────────────────────────────────
     logger.info("Generando guiones de Reel...")
     scripts = run_script_agent(client, research_brief)
