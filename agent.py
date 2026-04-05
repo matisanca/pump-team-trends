@@ -36,10 +36,10 @@ logger = logging.getLogger(__name__)
 
 # ── Configuración ─────────────────────────────────────────────────────────────
 
-MODEL = "claude-opus-4-6"
+MODEL = "claude-sonnet-4-6"
 
-# Límite de búsquedas para controlar costos (~$0.50-1.50 por run típico)
-MAX_SEARCHES = 25
+# Límite de búsquedas para controlar costos (~$0.50-0.70 por run típico)
+MAX_SEARCHES = 15
 
 # Reintentos ante fallo de la API de Anthropic (con 30s de espera entre intentos)
 MAX_API_RETRIES = 2
