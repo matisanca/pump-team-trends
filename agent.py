@@ -375,7 +375,7 @@ def run_agent(client: anthropic.Anthropic) -> str:
             try:
                 response = client.messages.create(
                     model=MODEL,
-                    max_tokens=8000,
+                    max_tokens=4000,
                     system=SYSTEM_PROMPT,
                     tools=[{"type": "web_search_20250305", "name": "web_search"}],
                     messages=messages,
@@ -466,6 +466,10 @@ def run_agent_with_retry(client: anthropic.Anthropic) -> str:
     for attempt in range(MAX_API_RETRIES + 1):
         try:
             return run_agent(client)
+        except anthropic.RateLimitError as e:
+            # No reintentar el agente completo por rate limit — ya se maneja
+            # internamente en run_agent con backoff. Si llegó acá, falló definitivo.
+            raise
         except anthropic.APIError as e:
             last_error = e
             if attempt < MAX_API_RETRIES:
